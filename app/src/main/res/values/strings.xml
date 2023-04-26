@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MedicalHistory</string>
+    <string name="store">fab</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recordBtn">record</string>
+    <string name="listBtn">list</string>
+    <string name="playerBtn">player</string>
+    <string name="forwordBtn">forword</string>
+    <string name="backwordBtn">backword</string>
+
+</resources>
