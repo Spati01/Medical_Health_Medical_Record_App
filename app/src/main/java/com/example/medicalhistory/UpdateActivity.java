@@ -7,7 +7,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -38,9 +40,11 @@ public class UpdateActivity extends AppCompatActivity {
     String imageUrl;
     String key, oldImageURL;
     Uri uri;
+    CardView btn_upload;
     DatabaseReference databaseReference;
     StorageReference storageReference;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +55,7 @@ public class UpdateActivity extends AppCompatActivity {
         updateImage = findViewById(R.id.updateImage);
         updateLang = findViewById(R.id.updateLang);
         updateTitle = findViewById(R.id.updateTitle);
+        btn_upload = findViewById(R.id.btn_upload);
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -78,7 +83,7 @@ public class UpdateActivity extends AppCompatActivity {
         }
         databaseReference = FirebaseDatabase.getInstance().getReference("Android Tutorials").child(key);
 
-        updateImage.setOnClickListener(new View.OnClickListener() {
+        btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent photoPicker = new Intent(Intent.ACTION_PICK);
@@ -89,9 +94,17 @@ public class UpdateActivity extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveData();
-                Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
-                startActivity(intent);
+
+                if (uri!=null)
+                {
+                    saveData();
+                }
+                else
+                {
+                    updateData();
+                }
+
+
             }
         });
     }
@@ -126,15 +139,17 @@ public class UpdateActivity extends AppCompatActivity {
         desc = updateDesc.getText().toString().trim();
         lang = updateLang.getText().toString();
 
-        DataClass dataClass = new DataClass(title, desc, lang, imageUrl);
+        DataClass dataClass = new DataClass(title, desc, lang,imageUrl);
 
         databaseReference.setValue(dataClass).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(oldImageURL);
-                    reference.delete();
+                    //StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(oldImageURL);
+                    //reference.delete();
                     Toast.makeText(UpdateActivity.this, "Updated", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UpdateActivity.this, MainActivity.class);
+                    startActivity(intent);
                     finish();
                 }
             }
@@ -145,4 +160,11 @@ public class UpdateActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }

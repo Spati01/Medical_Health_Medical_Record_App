@@ -7,7 +7,9 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -38,7 +40,9 @@ public class UploadActivity extends AppCompatActivity {
     EditText uploadTopic, uploadDesc, uploadLang;
     String imageURL;
     Uri uri;
+    CardView btn_upload;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,7 @@ public class UploadActivity extends AppCompatActivity {
         uploadTopic = findViewById(R.id.updateTitle);
         uploadLang = findViewById(R.id.updateLang);
         saveButton = findViewById(R.id.updateButton);
+        btn_upload = findViewById(R.id.btn_upload);
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -66,7 +71,7 @@ public class UploadActivity extends AppCompatActivity {
                 }
         );
 
-        uploadImage.setOnClickListener(new View.OnClickListener() {
+        btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent photoPicker = new Intent(Intent.ACTION_PICK);
@@ -78,7 +83,17 @@ public class UploadActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveData();
+
+                if (uri!=null)
+                {
+                    saveData();
+                }
+                else
+                {
+                    Toast.makeText(UploadActivity.this, "Upload Image", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
     }
@@ -141,5 +156,10 @@ public class UploadActivity extends AppCompatActivity {
                         Toast.makeText(UploadActivity.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }

@@ -49,12 +49,6 @@ public class MainActivity extends AppCompatActivity {
         searchView.clearFocus();
 
 
-
-
-
-
-
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(MainActivity.this, 1);
         recyclerView.setLayoutManager(gridLayoutManager);
 

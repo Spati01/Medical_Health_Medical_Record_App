@@ -51,7 +51,6 @@ public class RecorderFragment extends Fragment {
 
     File path = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/VRecorder");
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -106,7 +105,7 @@ public class RecorderFragment extends Fragment {
 
     }
 
-    private void startRecording(){
+    /*private void startRecording(){
         recorder = new MediaRecorder();
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
@@ -119,7 +118,25 @@ public class RecorderFragment extends Fragment {
             e.printStackTrace();
         }
         recorder.start();
+    }*/
+
+
+    private void startRecording(){
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        recorder.setOutputFile(fileName);
+
+
+        try {
+            recorder.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        recorder.start();
     }
+
 
     private void stopRecording(){
         recorder.stop();
@@ -133,7 +150,7 @@ public class RecorderFragment extends Fragment {
              Manifest.permission.RECORD_AUDIO).withListener(new MultiplePermissionsListener() {
          @Override
          public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
-             Toast.makeText(getContext(), "Granted!!", Toast.LENGTH_SHORT).show();
+             //Toast.makeText(getContext(), "Granted!!", Toast.LENGTH_SHORT).show();
          }
 
          @Override

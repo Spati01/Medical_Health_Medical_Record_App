@@ -1,6 +1,7 @@
 package com.example.medicalhistory;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -53,6 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
                intent.putExtra("Language", dataList.get(holder.getAdapterPosition()).getDataLang());
 
                 context.startActivity(intent);
+                ((Activity)context).finishAffinity();
             }
         });
     }

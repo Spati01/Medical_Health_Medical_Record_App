@@ -3,6 +3,7 @@ package com.example.medicalhistory;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,15 +14,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth auth;
-    private EditText signupEmail,signupPassword;
+    private TextInputEditText signupEmail,signupPassword;
     private Button signupButton;
     private TextView loginRedirectText;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,7 @@ public class SignUpActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 Toast.makeText(SignUpActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                                finish();
                             }else{
                                 Toast.makeText(SignUpActivity.this, "SignUp Failed" +task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -66,7 +70,16 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                finish();
             }
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+        finish();
     }
 }
