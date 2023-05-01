@@ -1,17 +1,11 @@
 package com.example.medicalhistory;
 
-import androidx.navigation.NavAction;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.NavController;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -49,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         fab = findViewById(R.id.fab);
-        Btn = findViewById(R.id.recordBtn);
+        Btn = findViewById(R.id.myButton);
         recyclerView = findViewById(R.id.recyclerView);
         searchView = findViewById(R.id.search);
         searchView.clearFocus();
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
 
 
 
@@ -119,13 +113,9 @@ public class MainActivity extends AppCompatActivity {
         Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Activity activity = (Activity) view.getContext();
 
+                startActivity(new Intent(MainActivity.this,RecordActivity.class));
 
-                NavController navController = Navigation.findNavController(activity, R.id.nav_host_fragment);
-
-
-                navController.navigate(R.id.recordFragment);
 
             }
         });

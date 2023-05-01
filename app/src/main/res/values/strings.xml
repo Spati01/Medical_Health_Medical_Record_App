@@ -8,5 +8,6 @@
     <string name="playerBtn">player</string>
     <string name="forwordBtn">forword</string>
     <string name="backwordBtn">backword</string>
+    <string name="record_btn">btnRec</string>
 
 </resources>
