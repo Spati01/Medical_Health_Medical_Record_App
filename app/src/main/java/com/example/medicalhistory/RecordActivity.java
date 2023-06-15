@@ -27,7 +27,7 @@ public class RecordActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
 
-        setSupportActionBar(toolbar);
+     //   setSupportActionBar(toolbar);
 
         setupViewpager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
